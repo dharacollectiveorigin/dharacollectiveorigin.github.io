@@ -1,0 +1,98 @@
+
+/* DHARA — responsive design system. Works alongside the base styles. */
+:root{color-scheme:light;--page-gutter:clamp(18px,4.5vw,88px)}
+html{scroll-padding-top:90px;-webkit-text-size-adjust:100%}
+body{min-width:0;overflow-x:clip}
+img,video,svg{max-width:100%}
+img{display:block}
+button,input,textarea,select{max-width:100%}
+a,button{-webkit-tap-highlight-color:transparent}
+.header{padding-inline:var(--page-gutter);gap:18px}
+.nav{flex-wrap:wrap}
+.hero{min-width:0}
+.hero-copy,.hero-photo,.editorial-copy,.editorial-img{min-width:0}
+.hero h1{overflow-wrap:normal}
+.section{padding-inline:var(--page-gutter)}
+.products{grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(12px,2vw,28px)}
+.product-visual img{width:100%;height:100%;object-fit:cover}
+.product-bottom{gap:8px}
+.footer{padding-inline:var(--page-gutter)}
+.footer-grid{min-width:0}
+.bag{box-shadow:-15px 0 55px #0002;max-width:100vw}
+#bagItems{overflow-wrap:anywhere}
+.cta{max-width:100%;justify-content:space-between;gap:16px}
+.mobile-menu{display:none}
+@media (min-width:1600px){
+ .hero{max-height:850px}
+ .hero-copy{padding-inline:max(7vw,calc((100vw - 1450px)/2))}
+ .section,.footer{padding-inline:max(6vw,calc((100vw - 1450px)/2))}
+}
+@media (max-width:1024px){
+ .nav{gap:16px}
+ .header{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr)}
+ .hero{min-height:590px}
+ .hero-copy{padding:clamp(30px,5vw,70px)}
+ .hero h1{font-size:clamp(62px,8.6vw,108px)}
+ .editorial-copy{padding:clamp(30px,5vw,70px)}
+}
+@media (max-width:760px){
+ .header{height:68px;grid-template-columns:1fr auto;gap:10px}
+ .header .brand{justify-self:start;font-size:27px}
+ .header .nav{display:none}
+ .head-right{grid-column:2;gap:14px}
+ .mobile-menu{display:flex;align-items:center;justify-content:center;width:36px;height:36px;border:1px solid var(--line);background:transparent;font-size:20px}
+ .mobile-nav{display:none;position:sticky;top:68px;z-index:7;background:var(--white);border-bottom:1px solid var(--line);padding:18px var(--page-gutter);gap:20px}
+ .mobile-nav.open{display:flex;flex-wrap:wrap}
+ .mobile-nav a{font-size:12px;letter-spacing:.12em;font-weight:700;text-transform:uppercase}
+ .hero{display:flex;flex-direction:column-reverse;min-height:0;height:auto;max-height:none}
+ .hero-photo{height:clamp(330px,65vw,550px)}
+ .hero-copy{padding:55px var(--page-gutter) 75px}
+ .hero h1{font-size:clamp(70px,13vw,110px)}
+ .hero-copy:after{left:var(--page-gutter)}
+ .ticker{flex-wrap:wrap;justify-content:center;row-gap:12px}
+ .section{padding-block:75px}
+ .section-heading{align-items:flex-start}
+ .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .editorial{display:flex;flex-direction:column;min-height:0}
+ .editorial-img{height:clamp(320px,55vw,480px)}
+ .editorial-copy{padding:65px var(--page-gutter)}
+ .story{padding:85px var(--page-gutter)}
+ .footer-grid{grid-template-columns:1fr 1fr}
+ .footer-grid>div:first-child{grid-column:1/-1}
+}
+@media (max-width:480px){
+ .topbar{font-size:8px;letter-spacing:.11em;padding:9px 10px}
+ .header{padding-inline:16px}
+ .header .brand{font-size:24px;letter-spacing:.14em}
+ .head-right{gap:9px}
+ .head-right .text-button:first-child{display:none}
+ .text-button{font-size:10px}
+ .hero-photo{height:390px}
+ .hero-copy{padding-top:45px}
+ .hero h1{font-size:clamp(62px,16vw,85px)}
+ .hero p{font-size:13px}
+ .section{padding-block:62px}
+ .section-heading{display:block}
+ .section-heading .underlink{display:inline-block;margin-top:18px}
+ .section h2{font-size:clamp(38px,10vw,54px)}
+ .products{gap:11px}
+ .product-visual{aspect-ratio:3/4}
+ .product-bottom h3{font-size:12px;line-height:1.45}
+ .product-bottom p{font-size:10px}
+ .price{font-size:12px}
+ .add-btn{padding:11px 5px;font-size:9px;letter-spacing:.03em}
+ .editorial h2{font-size:clamp(44px,12vw,66px)}
+ .footer{padding-top:55px}
+ .footer-grid{gap:28px 14px}
+ .footer .brand{font-size:35px}
+ .bag{padding:20px}
+}
+@media (max-width:340px){
+ .header .brand{font-size:21px}
+ .hero h1{font-size:58px}
+ .products{grid-template-columns:1fr}
+ .product-visual{aspect-ratio:4/4.3}
+}
+@media (prefers-reduced-motion:reduce){
+ *,*:before,*:after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
