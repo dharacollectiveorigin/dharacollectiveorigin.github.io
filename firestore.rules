@@ -1,0 +1,42 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Replace with the UID from Firebase Authentication > Users.
+    function isAdmin() {
+      return request.auth != null && request.auth.uid == 'REPLACE_WITH_ADMIN_UID';
+    }
+    function isChatOwner(chatId) {
+      return request.auth != null && request.auth.uid == chatId;
+    }
+    match /settings/{settingId} {
+      allow read: if settingId == 'social';
+      allow create, update: if settingId == 'social' && isAdmin()
+        && request.resource.data.keys().hasOnly(['facebook','instagram','youtube','tiktok'])
+        && request.resource.data.keys().hasAll(['facebook','instagram','youtube','tiktok'])
+        && request.resource.data.facebook is string && request.resource.data.instagram is string && request.resource.data.youtube is string && request.resource.data.tiktok is string && request.resource.data.facebook.size() <= 300 && request.resource.data.instagram.size() <= 300 && request.resource.data.youtube.size() <= 300 && request.resource.data.tiktok.size() <= 300;
+      allow delete: if false;
+    }
+    match /products/{productId} {
+      allow read: if true;
+      allow create, update, delete: if isAdmin();
+    }
+    // Admin collection-group inbox query.
+    match /{path=**}/messages/{messageId} {
+      allow read: if isAdmin();
+    }
+    match /chats/{chatId}/messages/{messageId} {
+      allow read: if isAdmin() || isChatOwner(chatId);
+      allow create: if isAdmin() || (
+        isChatOwner(chatId)
+        && request.resource.data.keys().hasOnly(['text', 'sender', 'createdAt'])
+        && request.resource.data.keys().hasAll(['text', 'sender', 'createdAt'])
+        && request.resource.data.sender == 'customer'
+        && request.resource.data.text is string
+        && request.resource.data.text.size() > 0
+        && request.resource.data.text.size() <= 1000
+        && request.resource.data.createdAt == request.time
+      );
+      allow update, delete: if false;
+    }
+  }
+}
